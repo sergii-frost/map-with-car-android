@@ -39,6 +39,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        mMap.uiSettings.isRotateGesturesEnabled = false
+        mMap.uiSettings.isMyLocationButtonEnabled = true
+
         // Add a marker in Frost and move the camera
         update_button.isEnabled = true
         reset_button.isEnabled = true
