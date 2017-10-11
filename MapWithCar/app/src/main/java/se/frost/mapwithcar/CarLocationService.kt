@@ -26,7 +26,7 @@ public class CarLocationService private constructor() {
         if (locations.isEmpty()) {
             return null
         }
-        locations.add(locations.last().random())
+        locations.add(locations.last().random(maxBearing = MAX_BEARING_DEGREES / (locations.size % 4 + 1)))
 
         return locations.last()
     }
