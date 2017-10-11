@@ -3,4 +3,9 @@
     <string name="title_activity_maps">Map</string>
     <string name="update_button">UPDATE</string>
     <string name="reset_button">RESET</string>
+    <string name="allow_location_access">Allow Location Access</string>
+    <string name="title_location_permission">Location access</string>
+    <string name="text_location_permission">We need to access your current location in order to show it on the map</string>
+    <string name="ok">OK</string>
+    <string name="app_settings">App Settings</string>
 </resources>
