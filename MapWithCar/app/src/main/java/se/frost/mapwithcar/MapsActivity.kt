@@ -9,10 +9,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+
+    private val frost = LatLng(59.3374653, 18.0288792)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        initButtons()
     }
 
     /**
@@ -36,8 +40,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Frost and move the camera
-        val frost = LatLng(59.3374653, 18.0288792)
+        update_button.isEnabled = true
+        reset_button.isEnabled = true
+        resetCarLocation()
+    }
+
+    private fun initButtons() {
+        update_button.setOnClickListener({ updateCarLocation() })
+        reset_button.setOnClickListener({ resetCarLocation() })
+    }
+
+    private fun updateCarLocation() {
+        val location : LatLng = CarLocationService.instance.getCarLocation() ?: return
+
+        MapDrawHelper.drawCarWithPath(applicationContext, mMap, CarLocationService.instance.getCarLocations())
+    }
+
+    private fun resetCarLocation() {
+        mMap.clear()
+        CarLocationService.instance.reset(frost)
         mMap.addMarker(MarkerOptions().position(frost).title("Frost° in Stockholm"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(frost, 15.0f))
+
     }
+
 }
