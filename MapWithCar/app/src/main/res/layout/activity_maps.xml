@@ -10,15 +10,18 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/buttons_layout"
         tools:context="se.frost.mapwithcar.MapsActivity"/>
 
     <LinearLayout
+        android:id="@+id/buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/blue"
         android:clickable="true"
         android:focusable="true"
-        android:padding="8dp">
+        android:padding="@dimen/padding_m">
 
         <Button
             android:id="@+id/update_button"
