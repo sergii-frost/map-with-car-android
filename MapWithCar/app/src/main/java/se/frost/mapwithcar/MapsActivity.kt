@@ -54,6 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val location : LatLng = CarLocationService.instance.getCarLocation() ?: return
 
         MapDrawHelper.drawCarWithPath(applicationContext, mMap, CarLocationService.instance.getCarLocations())
+        MapDrawHelper.zoomToFitAllLocations(mMap, CarLocationService.instance.getCarLocations())
     }
 
     private fun resetCarLocation() {

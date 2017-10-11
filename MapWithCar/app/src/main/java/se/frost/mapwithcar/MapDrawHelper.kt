@@ -2,11 +2,9 @@ package se.frost.mapwithcar
 
 import android.content.Context
 import android.support.v4.content.res.ResourcesCompat
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 
 /**
  * MapWithCar
@@ -16,6 +14,7 @@ import com.google.android.gms.maps.model.PolylineOptions
  */
 
 const val DEGREES_FULL_CIRCLE = 360.0f
+const val BOUNDS_PADDING = 100
 
 public class MapDrawHelper {
 
@@ -48,6 +47,13 @@ public class MapDrawHelper {
             }
 
             drawCar(map, locations.last(), "Position #${locations.size}", bearing.toFloat())
+        }
+
+        fun zoomToFitAllLocations(map: GoogleMap, locations: List<LatLng>) {
+            val latLngBoundsBuilder = LatLngBounds.builder()
+            locations.forEach { latLngBoundsBuilder.include(it) }
+
+            map.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsBuilder.build(), BOUNDS_PADDING))
         }
     }
 
